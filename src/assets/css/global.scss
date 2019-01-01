@@ -1,0 +1,30 @@
+body{
+    height: 660px;
+    width: 1060px;
+    position: relative;
+    overflow: hidden;
+    font-family: "Microsoft Yahei";
+}
+
+.user_center{
+    .panel-subNav{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        .btn-group button{
+          width: 100px;
+          &.active{
+            box-shadow: none;
+          }
+        }
+      }
+      .panel-subNav .btn-group button{
+        border-color: #ebebeb;
+      }
+      .panel-subNav .btn-group button.active{
+        background-color: #86CCB2;
+        color: #FFF;
+      }
+}
