@@ -4,18 +4,25 @@
     <div class="class">
       <div id="typeNav" class="class_nav">
         <ul class="nav nav-pills nav-stacked">
-
-
-          <li typeid="" onclick="javarscript:$('#typeNav>ul>li').removeClass('active');$(this).addClass('active');"><a
-              href="javascript:void(0)" onclick="Product.loadProductsByType()"></a></li>
-
-
+          <li typeid=""><a href="javascript:void(0)"></a></li>
         </ul>
       </div>
     </div>
     <div class="content">
       <div id="productList" class="product">
-
+        <div class="list" v-for="moive in moiveList" :key="moive.id">
+                    <a>
+                        <div class="pro_img">
+                            <img :src="moive.images.small">
+                        </div>
+                        
+                        <div class="pro_title">
+                            <p :title="moive.title">{{moive.title}}<span><em>
+                            {{moive.rating.average}}
+                            </em></span></p>
+                        </div>
+                    </a>
+                </div>
       </div>
     </div>
     <div class="checkout">
@@ -48,7 +55,21 @@
 
 <script>
 export default {
-  name: 'Beverage'
+  name: 'Beverage',
+  data(){
+    return {
+      moiveList: []
+    }
+  },
+  created(){
+    this.$axios.get("api/movie/top250")
+    .then(res => {
+      if(res.status == 200){
+        this.moiveList = res.data.subjects
+      }
+    })
+    .catch(err => console.log(err));
+  }
 }
 </script>
 
