@@ -1,5 +1,5 @@
 <template>
-<div class="user_center">
+<div class="user_center ">
   <div class="user_nav">
     <div class="user_info">
       <div class="basic_money"><span id="balanceTitle" class="iconfont">&#xe6a6;</span> <span id="balance" class="base_money_num">---</span>
