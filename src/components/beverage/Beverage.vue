@@ -211,10 +211,11 @@ export default {
 
 .meal_page .content .product>div.list .pro_img {
   overflow: hidden;
+  height: 160px;
 }
 
 .meal_page .content .product>div.list img {
-  height: 116px;
+  // height: 116px;
   width: 116px;
 }
 
@@ -531,5 +532,98 @@ export default {
       background-color: #ECFFF8;
     }
   }
+}
+.water_content {
+    // background-image: url("../../clientImages/water/water_bg_spring.webp");
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 12px 4px;
+    >div {
+        height: 656px;
+    }
+}
+.class .nav>li {
+    >a {
+        border-bottom: 1px solid #ebebeb;
+        color: #666;
+    }
+    &.active>a,
+    >a:hover {
+        color: #86CCB2;
+        background-color: initial;
+    }
+}
+.content {
+    .banner {
+        background-color: rgba(255, 255, 255, .2);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .product {
+        >div.list .pro_title {
+            background-color: #fff;
+        }
+        .pro_title p {
+            color: #292f51;
+            span {
+                color: #e82221;
+            }
+        }
+    }
+}
+.checkout {
+    .water_info {
+        border-bottom: 1px solid #fff;
+    }
+    .balance span em {
+        color: #e81f1f;
+        font-weight: bold;
+    }
+    .checkout_content {
+        height: 456px;
+        .checkout_list {
+            background-color: #fff;
+        }
+        .checkout_name {
+            color: #333;
+        }
+        .product_num {
+            p {
+                color: #666;
+            }
+            button {
+                color: #666;
+                &:hover,
+                &:focus {
+                    color: lightgray;
+                }
+            }
+        }
+        .delete_list {
+            color: #333;
+            >button {
+                color: #333;
+            }
+        }
+    }
+    .meal_tips {
+        background-color: #96DAC1;
+        width: 244px;
+        left: 0px;
+        bottom: 68px;
+    }
+    .submit {
+        p {
+            color: #333;
+        }
+        .next_btn {
+            background-color: #96DAC1;
+            border-radius: 50px;
+            color: #fff;
+            &:hover {
+                background-color: #86CCB2;
+            }
+        }
+    }
 }
 </style>

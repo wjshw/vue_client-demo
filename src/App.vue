@@ -10,7 +10,7 @@
     <div class="top_nav">
       <ul class="nav nav-pills" role="tablist">
         <router-link tag="li" :to="{name:'index'}" active-class="active" class="ItalicNav"><a><span class="iconfont" style="font-size:14px">&#xe605;</span> 首页</a></router-link>
-        <router-link tag="li" :to="{name:'beverage'}" active-class="active"  class="ItalicNav"><a><span class="iconfont">&#xe6a3;</span>购买饮品</a></router-link>
+        <router-link tag="li" :to="{name:'beverage'}" active-class="active"  class="ItalicNav"><a><span class="iconfont">&#xe6a3;</span>影视列表</a></router-link>
         <router-link tag="li" :to="{name:'recharge'}" active-class="active"  class="ItalicNav"><a><span class="iconfont" style="padding-top: 2px">&#xe69c;</span> 网费充值</a></router-link>
         <router-link tag="li" :to="{name:'game'}" active-class="active"  class="ItalicNav"><a><span class="iconfont" style="padding-top: 2px">&#xe695;</span> 游戏中心</a></router-link>
         <router-link tag="li" :to="{name:'task'}" active-class="active"  class="ItalicNav"><a><span class="iconfont" style="padding-top: 2px">&#xe6a5;</span> 任务中心</a></router-link>
