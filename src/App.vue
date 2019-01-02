@@ -9,12 +9,12 @@
     </div>
     <div class="top_nav">
       <ul class="nav nav-pills" role="tablist">
-        <li role="presentation" class="active ItalicNav"><router-link :to="{name:'index'}"><span class="iconfont" style="font-size:14px">&#xe605;</span> 首页</router-link></li>
-        <li role="presentation" class="ItalicNav"><router-link :to="{name:'beverage'}"><span class="iconfont">&#xe6a3;</span>购买饮品</router-link></li>
-        <li role="presentation" class="ItalicNav"><router-link :to="{name:'recharge'}"><span class="iconfont" style="padding-top: 2px">&#xe69c;</span> 网费充值</router-link></li>
-        <li role="presentation" class="ItalicNav"><router-link :to="{name:'game'}"><span class="iconfont" style="padding-top: 2px">&#xe695;</span> 游戏中心</router-link></li>
-        <li role="presentation" class="ItalicNav"><router-link :to="{name:'task'}"><span class="iconfont" style="padding-top: 2px">&#xe6a5;</span> 任务中心</router-link></li>
-        <li role="presentation " class="ItalicNav last"><router-link :to="{name:'more'}"><span class="iconfont" style="padding-top: 4px">&#xe669;</span> 设置</router-link></li>
+        <router-link tag="li" :to="{name:'index'}" active-class="active" class="ItalicNav"><a><span class="iconfont" style="font-size:14px">&#xe605;</span> 首页</a></router-link>
+        <router-link tag="li" :to="{name:'beverage'}" active-class="active"  class="ItalicNav"><a><span class="iconfont">&#xe6a3;</span>购买饮品</a></router-link>
+        <router-link tag="li" :to="{name:'recharge'}" active-class="active"  class="ItalicNav"><a><span class="iconfont" style="padding-top: 2px">&#xe69c;</span> 网费充值</a></router-link>
+        <router-link tag="li" :to="{name:'game'}" active-class="active"  class="ItalicNav"><a><span class="iconfont" style="padding-top: 2px">&#xe695;</span> 游戏中心</a></router-link>
+        <router-link tag="li" :to="{name:'task'}" active-class="active"  class="ItalicNav"><a><span class="iconfont" style="padding-top: 2px">&#xe6a5;</span> 任务中心</a></router-link>
+        <router-link tag="li" :to="{name:'more'}" active-class="active"  class="ItalicNav last"><a><span class="iconfont" style="padding-top: 4px">&#xe669;</span> 设置</a></router-link>
       </ul>
     </div>
     <div class="avatar"><img id="headImgUrl" :src="avatar"></div>

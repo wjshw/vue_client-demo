@@ -11,8 +11,14 @@ import './assets/iconfont/iconfont.css'
 import './assets/bootstrap3.3/dist/css/bootstrap.min.css'
 import './assets/css/global.scss'
 
-Vue.prototype.$axios = Axios
+import Loading from 'element-ui/packages/loading'
+import 'element-ui/lib/theme-chalk/index.css'
+
+
 Vue.use(Vuex)
+Vue.use(Loading.directive);
+Vue.prototype.$axios = Axios
+Vue.prototype.$loading = Loading.service;
 
 let store = new Vuex.Store({
   store: {},

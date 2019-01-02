@@ -4,33 +4,33 @@
     <div class="class">
       <div id="typeNav" class="class_nav">
         <ul class="nav nav-pills nav-stacked">
-          <li typeid=""><a href="javascript:void(0)"></a></li>
+          <li v-for="(type, index) in typeList" :key="index" @click="getList(type.api)"><a href="javascript:void(0)">{{type.title}}</a></li>
         </ul>
       </div>
     </div>
     <div class="content">
       <div id="productList" class="product">
         <div class="list" v-for="moive in moiveList" :key="moive.id">
-                    <a>
-                        <div class="pro_img">
-                            <img :src="moive.images.small">
-                        </div>
-                        
-                        <div class="pro_title">
-                            <p :title="moive.title">{{moive.title}}<span><em>
-                            {{moive.rating.average}}
-                            </em></span></p>
-                        </div>
-                    </a>
-                </div>
+          <a>
+            <div class="pro_img">
+              <img :src="moive.images.small">
+            </div>
+
+            <div class="pro_title">
+              <p :title="moive.title">{{moive.title}}<span><em>
+                    {{moive.rating.average}}
+                  </em></span></p>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
     <div class="checkout">
       <div class="search_product">
         <div class="input-group input-group-sm">
-          <input type="text" id="searchInfo" class="form-control" autocomplete="off">
+          <input class="form-control" v-model.trim="searchText" @keyup.enter="searchMoive" autocomplete="off">
           <span class="input-group-btn">
-            <button class="btn btn-default" onclick="Product.searchProduct()">搜索</button>
+            <button class="btn btn-default" @click="searchMoive">搜索</button>
           </span>
         </div>
       </div>
@@ -38,10 +38,10 @@
         <div id="cartList">
 
         </div>
-        <div class="meal_tips" id="mealTips" style="display:none;">
+        <!-- <div class="meal_tips" id="mealTips" style="display:none;">
           <p>您有<span id="orderNum"></span>个订单正在路上...</p>
           <button class="btn btn-xs btn-link btn-text" onclick="$('.orderList').fadeIn();$('.popup_mask').fadeIn();">查看订单</button>
-        </div>
+        </div> -->
       </div>
       <div class="submit">
         <p>总价：<span id="totalPrice">0</span> 元</p>
@@ -56,19 +56,68 @@
 <script>
 export default {
   name: 'Beverage',
-  data(){
+  data() {
     return {
-      moiveList: []
+      moiveList: [],
+      typeList: [{
+          title: '正在热映',
+          api: 'movie/in_theaters'
+        },
+        {
+          title: '即将上映',
+          api: 'movie/coming_soon'
+        },
+        {
+          title: 'TOP250',
+          api: 'movie/top250'
+        }
+      ],
+      searchText: ''
     }
   },
-  created(){
-    this.$axios.get("api/movie/top250")
-    .then(res => {
-      if(res.status == 200){
-        this.moiveList = res.data.subjects
+  created() {
+    this.getList(this.typeList[0].api);
+  },
+  methods: {
+    getList(type) {
+      let loading = this.$loading({
+        lock: true,
+        text: '影片加载中',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
+      this.$axios.get("api/" + type)
+        .then(res => {
+          loading.close()
+          if (res.status == 200) {
+            this.moiveList = res.data.subjects
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          loading.close()
+        });
+    },
+    searchMoive() {
+      let loading = this.$loading({
+        lock: true,
+        text: '影片加载中',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
+      if (this.searchText) {
+        let url = 'api/movie/search?q=' + this.searchText
+        this.$axios.get(url)
+          .then(res => {
+            loading.close()
+            if (res.status == 200) {
+              this.moiveList = res.data.subjects
+            }
+          })
+          .catch(err => {
+            console.log(err)
+            loading.close()
+          });
       }
-    })
-    .catch(err => console.log(err));
+    }
   }
 }
 </script>
@@ -135,7 +184,7 @@ export default {
 }
 
 .meal_page .content .product>div.list {
-  display: inline-block;
+  // display: inline-block;
   float: left;
   margin-left: 6px;
   margin-bottom: 6px;
