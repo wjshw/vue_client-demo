@@ -4,7 +4,7 @@
     <div class="class">
       <div id="typeNav" class="class_nav">
         <ul class="nav nav-pills nav-stacked">
-          <li v-for="(type, index) in typeList" :key="index" @click="getList(type.api)"><a href="javascript:void(0)">{{type.title}}</a></li>
+          <li v-for="(type, index) in typeList" :class="{active:activeIdx==index}" :key="index" @click="getList(index)"><a href="javascript:void(0)">{{type.title}}</a></li>
         </ul>
       </div>
     </div>
@@ -72,23 +72,25 @@ export default {
           api: 'movie/top250'
         }
       ],
+      activeIdx: 0,
       searchText: ''
     }
   },
   created() {
-    this.getList(this.typeList[0].api);
+    this.getList(0);
   },
   methods: {
-    getList(type) {
+    getList(idx) {
       let loading = this.$loading({
         lock: true,
         text: '影片加载中',
         background: 'rgba(0, 0, 0, 0.7)'
       });
-      this.$axios.get("api/" + type)
+      this.$axios.get("api/" + this.typeList[idx].api)
         .then(res => {
           loading.close()
           if (res.status == 200) {
+            this.activeIdx = idx
             this.moiveList = res.data.subjects
           }
         })
@@ -109,7 +111,9 @@ export default {
           .then(res => {
             loading.close()
             if (res.status == 200) {
+              this.activeIdx = -1
               this.moiveList = res.data.subjects
+              this.searchText = ''
             }
           })
           .catch(err => {

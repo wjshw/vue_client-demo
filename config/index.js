@@ -17,7 +17,14 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
-      }
+      },
+      '/yun': {
+        target: 'http://yun.aida58.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/yun': ''
+        }
+      },
     },
 
     // Various Dev Server settings

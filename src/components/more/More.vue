@@ -4,37 +4,37 @@
     <div class="more_func_content clearfix">
       <div id="clientCheckout" class="func_btn">
         <a href="" data-toggle="modal" onclick="Client.memberTrySubmit()">
-          <!-- <img src="../../clientImages/newclient/shutdown.png"> -->
+          <img src="../../assets/img/more/shutdown.png">
           <p>结账下机</p>
         </a>
       </div>
       <div class="func_btn">
         <a href="" data-toggle="modal" data-target="#callModal">
-          <!-- <img src="../../clientImages/newclient/call.png"> -->
+          <img src="../../assets/img/more/call.png">
           <p>呼叫网管</p>
         </a>
       </div>
       <div class="func_btn">
         <a href="" data-toggle="modal" data-target="#lockCom">
-          <!-- <img src="../../clientImages/newclient/lock.png"> -->
+          <img src="../../assets/img/more/lock.png">
           <p>挂机</p>
         </a>
       </div>
       <div class="func_btn">
         <a href="" data-toggle="modal" onclick="Client.openPeriod();">
-          <!-- <img src="../../clientImages/newclient/period.png"> -->
+          <img src="../../assets/img/more/period.png">
           <p>转包时</p>
         </a>
       </div>
       <div id="changePwdBtn" class="func_btn change_Pwd_Btn">
         <a href="" data-toggle="modal" data-target="#changePwd">
-          <!-- <img src="../../clientImages/newclient/password.png"> -->
+          <img src="../../assets/img/more/password.png">
           <p>修改密码</p>
         </a>
       </div>
       <div class="func_btn">
         <a href="" data-toggle="modal" data-target="#leaveMessage">
-          <!-- <img src="../../clientImages/newclient/message.png"> -->
+          <img src="../../assets/img/more/message.png">
           <p>留言</p>
         </a>
       </div>

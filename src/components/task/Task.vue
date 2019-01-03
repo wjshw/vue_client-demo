@@ -1,13 +1,155 @@
 <template>
-  <div class="tab-pane active task_page">
-    <div id="dailyTask" class="daily_task">
+<div class="tab-pane active task_page">
+  <div class="daily_task">
+    <div class="task_header">
+      <div class="left_progress">
+        <p>今日已完成任务</p>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" :style="{width: taskList.count/taskList.num*100+'%'}">
+          </div>
+        </div>
+      </div>
+      <div class="right_progress">
+        <div>
+          <div class="level" :class="{active: key<=taskList.count}" v-for="(award,key) in taskList.award" :key="key" :style="progressPos(key)">
+            <div class="popover top">
+              <div class="arrow"></div>
+              <div class="popover-content">
+                <p>{{award.award}}</p>
+              </div>
+            </div>
+            <div class="point">{{key}}</div>
+          </div>
+        </div>
+        <div class="progress_container">
+          <div class="progress">
+            <div class="progress-bar" :style="{width: taskList.count/taskList.num*100+'%'}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="task_container">
+      <ul class="media-list">
+        <li class="media" v-if="taskList.info[1].use == 1">
+          <div class="media-left">
+            <img class="media-object" src="../../assets/img/task/task-recharge.png" alt="recharge">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">每日充值</h4>
+            <p>完成一次线上网费充值</p>
+          </div>
+          <div class="media-right">
+            <div class="label label-active" v-if="taskList.info[1].state == 1">已完成</div>
+            <div class="label label-default" v-else>未完成</div>
+          </div>
+        </li>
+        <li class="media" v-if="taskList.info[2].use == 1">
+          <div class="media-left">
+            <img class="media-object" src="../../assets/img/task/task-ordered.png" alt="ordered">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">每日点单</h4>
+            <p>完成一次线上水吧点单</p>
+          </div>
+          <div class="media-right">
+            <div class="label label-active" v-if="taskList.info[2].state == 1">已完成</div>
+            <div class="label label-default" v-else>未完成</div>
+          </div>
+        </li>
+        <li class="media" v-if="taskList.info[3].use == 1">
+          <div class="media-left">
+            <img class="media-object" src="../../assets/img/task/task-start.png" alt="start">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">每日上机</h4>
+            <p>完成一次上机活动</p>
+          </div>
+          <div class="media-right">
+            <div class="label label-active" v-if="taskList.info[3].state == 1">已完成</div>
+            <div class="label label-default" v-else>未完成</div>
+          </div>
+        </li>
+        <li class="media" v-if="taskList.info[4].use == 1">
+          <div class="media-left">
+            <img class="media-object" src="../../assets/img/task/task-share.png" alt="share">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">每日分享</h4>
+            <p>在我的页面分享到朋友圈</p>
+          </div>
+          <div class="media-right">
+            <div class="label label-active" v-if="taskList.info[4].state == 1">已完成</div>
+            <div class="label label-default" v-else>未完成</div>
+          </div>
+        </li>
+        <li class="media" v-if="taskList.info[5].use == 1">
+          <div class="media-left">
+            <img class="media-object" src="../../assets/img/task/task-pubg.png" alt="pubg">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">每日吃鸡</h4>
+            <p>在绝地求生游戏中，完成一次吃鸡</p>
+          </div>
+          <div class="media-right">
+            <div class="label label-active" v-if="taskList.info[5].state == 1">已完成</div>
+            <div class="label label-default" v-else>未完成</div>
+          </div>
+        </li>
+        <li class="media" v-if="taskList.info[6].use == 1">
+          <div class="media-left">
+            <img class="media-object" src="../../assets/img/task/task-lol.png" alt="lol">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">每日双杀</h4>
+            <p>在LOL中,完成一次双杀</p>
+          </div>
+          <div class="media-right">
+            <div class="label label-active" v-if="taskList.info[6].state == 1">已完成</div>
+            <div class="label label-default" v-else>未完成</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="task_empty">
+      <div><span class="iconfont">&#xe690;</span></div>
+      <p>本网吧暂未开启任务中心</p>
     </div>
   </div>
+</div>
 </template>
 
 <script>
   export default {
     name: 'Task',
+    data(){
+      return {
+        taskList: {},
+      }
+    },
+    created(){
+      this.getTaskList()
+    },
+    methods: {
+      getTaskList(){
+        let url = 'yun/cashier/user/selectdaytask'
+        let params = this.$store.getters.yunInit
+
+        this.$axios.post(url,params)
+        .then(res => {
+          console.log(res)
+          res.data.count = 2
+          this.taskList = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      },
+      progressPos(idx){
+        let pos = (parseInt(idx)/this.taskList.num)*100+'%'
+        return {left: pos}
+      }
+    }
   }
 
 </script>
@@ -54,7 +196,6 @@
   }
 
   .task_page .task_header .left_progress .progress .progress-bar {
-    /*background-color: #eb7e47;*/
     background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
     background-size: 40px 40px;
   }

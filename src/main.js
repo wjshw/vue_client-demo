@@ -21,8 +21,22 @@ Vue.prototype.$axios = Axios
 Vue.prototype.$loading = Loading.service;
 
 let store = new Vuex.Store({
-  store: {},
-  getters: {},
+  state: {
+    shopId: 233,
+    memberId: 2330000001,
+    yunRequest: {
+      time: 1546503262,
+      token: '35b8a590ce0abd35643a168f0fc91f2f'
+    }
+  },
+  getters: {
+    yunInit(state){
+      let params = state.yunRequest
+      params.shopid = state.shopId
+      params.memberID = state.memberId
+      return params
+    }
+  },
   mutations: {},
   actions: {}
 })
@@ -33,6 +47,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
