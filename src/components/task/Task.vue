@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="task_container">
+    <div class="task_container" v-if="taskList.result == 0">
       <ul class="media-list">
         <li class="media" v-if="taskList.info[1].use == 1">
           <div class="media-left">
@@ -111,7 +111,7 @@
         </li>
       </ul>
     </div>
-    <div class="task_empty">
+    <div class="task_empty" v-else>
       <div><span class="iconfont">&#xe690;</span></div>
       <p>本网吧暂未开启任务中心</p>
     </div>
