@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="slogan">
-        <p>{{$adtext}}</p>
+        <p></p>
       </div>
     </div>
   </div>

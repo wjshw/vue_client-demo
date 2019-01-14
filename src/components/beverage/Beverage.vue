@@ -68,14 +68,19 @@
     </div>
 
     <!-- 下单弹窗 -->
-    <el-dialog :visible.sync="comfirmOrder" center>
+    <el-dialog :visible.sync="comfirmOrder" customClass="confirm_order" center>
       <span slot="title">确认订单</span>
       <div class="order_content">
         <div class="pro_list">
           <div class="order_number">
             <p>应支付：￥<span id="orderTotalPrice"></span></p>
           </div>
-          <div class="order_list" id="queryOrderList">
+          <div class="order_list">
+            <div class="buy">
+        <img src="">
+        <p class="text-center">123</p>
+        <div class="pro_number text-center cartNum">1</div>
+    </div>
           </div>
           <div class="order_referrer" onclick="Product.openReferrerModel()">
             <p>推荐人</p>
@@ -88,9 +93,9 @@
         </div>
         <div class="pay_ways clearfix">
           <div>
-            <div class="water_coupon" onclick="Order.openCouponModal()">
+            <div class="water_coupon">
               <p>卡券兑换</p>
-              <div class="water_coupon_name" onclick=""><span id="waterbarCouponSelected"></span> ></div>
+              <div class="water_coupon_name">无可用卡券 ></div>
             </div>
             <!-- <div id="score" class="score">
             <p><span id="scoreTitle"></span></p>
@@ -100,15 +105,15 @@
           </div> -->
             <div class="real_pay">
               <p>实际支付</p>
-              <p class="real_money">￥ <span id="orderPayPrice"></span></p>
+              <p class="real_money">￥ {{sumPrice}}</p>
             </div>
           </div>
         </div>
       </div>
-      <span slot="footer" class="dialog-footer panWaysBtn">
-        <el-button class="btn weipay" onclick="Order.payByWXQrcodePay();"><span class="icon iconfont">&#xe66d;</span>微 信</el-button>
-        <el-button class="btn alipay" onclick="Order.payByAliQrcodePay();"><span class="icon iconfont">&#xe938;</span>支付宝</el-button>
-        <el-button id="netbarBalancePayDiv" class="btn netfeepay" onclick="Order.payByNetbarBalance();"><span class="icon iconfont">&#xe630;</span>网费余额</el-button>
+      <span slot="footer" class="dialog-footer payWaysBtn">
+        <el-button class="btn weipay" @click="payByWXQrcodePay();"><span class="icon iconfont">&#xe66d;</span> 微 信</el-button>
+        <el-button class="btn alipay" @click="payByAliQrcodePay();"><span class="icon iconfont">&#xe938;</span> 支付宝</el-button>
+        <el-button class="btn netfeepay" @click="payByNetbarBalance();"><span class="icon iconfont">&#xe630;</span> 网费余额</el-button>
       </span>
     </el-dialog>
   </div>
@@ -768,9 +773,6 @@
   }
 
   /*  -- order --  */
-  .el-dialog {
-    background-color: #efefef;
-  }
 
   .remark .remark_input {
     height: 54px;
@@ -784,7 +786,7 @@
     font-size: 12px;
   }
 
-  .yesorder .order_list .quan .cartNum {
+.order_list .quan .cartNum {
     height: 20px;
     width: 20px;
     background-color: white;
@@ -796,51 +798,43 @@
     text-align: center;
   }
 
-  .yesorder .panWaysBtn {
+.payWaysBtn {
     display: flex;
     justify-content: center;
   }
 
-  .yesorder .panWaysBtn button {
+.payWaysBtn button {
     background-color: #fff;
     width: 110px;
   }
 
-  .yesorder .panWaysBtn button+button {
+.payWaysBtn button+button {
     margin-left: 10px;
   }
 
-  .yesorder .panWaysBtn button>span {
+.payWaysBtn button>span {
     margin-right: 6px;
   }
 
-  .yesorder .panWaysBtn button.weipay {
+.payWaysBtn button.weipay {
     color: #2aac38;
   }
 
-  .yesorder .panWaysBtn button.alipay {
+.payWaysBtn button.alipay {
     color: #00a7ff;
   }
 
-  .yesorder .panWaysBtn button.unionpay {
+.payWaysBtn button.unionpay {
     color: #017f88;
   }
 
-  .yesorder .panWaysBtn button.netfeepay {
+.payWaysBtn button.netfeepay {
     color: #ff9500;
   }
 
   /*  -- order detail --  */
-  .order_content,
-  .popups.green_pop {
+  .confirm_order {
     background-color: #efefef;
-    width: 530px;
-    top: 120px;
-    left: 230px;
-  }
-
-  .popups.yesorder {
-    top: 80px;
   }
 
   .order_content .order_content,
