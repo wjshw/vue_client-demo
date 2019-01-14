@@ -1,122 +1,129 @@
 <template>
-  <div class="tab-pane active meal_page">
-    <div class="water_content">
-      <div class="class">
-        <div id="typeNav" class="class_nav">
-          <ul class="nav nav-pills nav-stacked">
-            <li v-for="(type, index) in typeList" :class="{active:activeIdx==index}" :key="index" @click="getList(index)"><a
-                href="javascript:void(0)">{{type.title}}</a></li>
-          </ul>
-        </div>
+<div class="tab-pane active meal_page">
+  <div class="water_content">
+    <div class="class">
+      <div id="typeNav" class="class_nav">
+        <ul class="nav nav-pills nav-stacked">
+          <li v-for="(type, index) in typeList" :class="{active:activeIdx==index}" :key="index" @click="getList(index)"><a
+              href="javascript:void(0)">{{type.title}}</a></li>
+        </ul>
       </div>
-      <div class="content">
-        <div id="productList" class="product">
-          <div class="list" v-for="moive in moiveList" :key="moive.id" @click="addToCart(moive)">
-            <a>
-              <div class="pro_img">
-                <img :src="moive.images.small">
-              </div>
+    </div>
+    <div class="content">
+      <div id="productList" class="product">
+        <div class="list" v-for="moive in moiveList" :key="moive.id" @click="addToCart(moive)">
+          <a>
+            <div class="pro_img">
+              <img :src="moive.images.small">
+            </div>
 
-              <div class="pro_title">
-                <p :title="moive.title">{{moive.title}}<span><em>
-                      {{moive.rating.average}}
-                    </em></span></p>
-              </div>
-            </a>
-          </div>
+            <div class="pro_title">
+              <p :title="moive.title">{{moive.title}}<span><em>
+                    {{moive.rating.average}}
+                  </em></span></p>
+            </div>
+          </a>
         </div>
       </div>
-      <div class="checkout">
-        <div class="search_product">
-          <div class="input-group input-group-sm">
-            <input class="form-control" v-model.trim="searchText" @keyup.enter="searchMoive" autocomplete="off">
-            <span class="input-group-btn">
-              <button class="btn btn-default" @click="searchMoive">搜索</button>
-            </span>
-          </div>
+    </div>
+    <div class="checkout">
+      <div class="search_product">
+        <div class="input-group input-group-sm">
+          <input class="form-control" v-model.trim="searchText" @keyup.enter="searchMoive" autocomplete="off">
+          <span class="input-group-btn">
+            <button class="btn btn-default" @click="searchMoive">搜索</button>
+          </span>
         </div>
-        <div class="checkout_content">
-          <div id="cartList">
-            <div class="checkout_list clearfix" v-for="(item, idx) in cartList" :key="item.id">
-              <div class="checkout_img">
-                <img :src="item.images.small">
-              </div>
-              <div class="checkout_text">
-                <div class="checkout_name">
-                  <p>{{item.title}}</p>
-                  <div class="product_num">
-                    <p>
-                      <button class="btn btn-sm btn-link btn-text" @click="subNum(idx)">&lt;</button>
-                      <em>{{item.num}}</em>
-                      <button class="btn btn-sm btn-link btn-text" @click="addNum(idx)">&gt;</button>
-                    </p>
-                  </div>
+      </div>
+      <div class="checkout_content">
+        <div id="cartList">
+          <div class="checkout_list clearfix" v-for="(item, idx) in cartList" :key="item.id">
+            <div class="checkout_img">
+              <img :src="item.images.small">
+            </div>
+            <div class="checkout_text">
+              <div class="checkout_name">
+                <p>{{item.title}}</p>
+                <div class="product_num">
+                  <p>
+                    <button class="btn btn-sm btn-link btn-text" @click="subNum(idx)">&lt;</button>
+                    <em>{{item.num}}</em>
+                    <button class="btn btn-sm btn-link btn-text" @click="addNum(idx)">&gt;</button>
+                  </p>
                 </div>
               </div>
-              <div class="delete_list">
-                <button class="btn btn-xs btn-link btn-text" @click="removeFromCart(idx)"><span class="icon iconfont">&#xe610;</span></button>
-              </div>
+            </div>
+            <div class="delete_list">
+              <button class="btn btn-xs btn-link btn-text" @click="removeFromCart(idx)"><span class="icon iconfont">&#xe610;</span></button>
             </div>
           </div>
-        </div>
-        <div class="submit">
-          <p>总价：<span id="totalPrice">{{sumPrice}}</span> 元</p>
-          <a onclick="Order.openOrderContentModal();" class="btn btn-link btn-text next_btn">下一步</a>
-
         </div>
       </div>
-    </div>
+      <div class="submit">
+        <p>总价：<span id="totalPrice">{{sumPrice}}</span> 元</p>
+        <a @click="checkOrder" class="btn btn-link btn-text next_btn">下一步</a>
 
-    <!-- 下单弹窗 -->
-    <el-dialog :visible.sync="comfirmOrder" customClass="confirm_order" center>
-      <span slot="title">确认订单</span>
-      <div class="order_content">
-        <div class="pro_list">
-          <div class="order_number">
-            <p>应支付：￥<span id="orderTotalPrice"></span></p>
-          </div>
-          <div class="order_list">
-            <div class="buy">
-        <img src="">
-        <p class="text-center">123</p>
-        <div class="pro_number text-center cartNum">1</div>
+      </div>
     </div>
-          </div>
-          <div class="order_referrer" onclick="Product.openReferrerModel()">
-            <p>推荐人</p>
-            <div><span id="referrerName">无</span> ></div>
+  </div>
+
+  <!-- 下单弹窗 -->
+  <el-dialog :visible.sync="comfirmOrder" customClass="confirm_order" center>
+    <span slot="title">确认订单</span>
+    <div class="order_content">
+      <div class="pro_list">
+        <div class="order_number">
+          <p>应支付：￥{{sumPrice}}</p>
+        </div>
+        <div class="order_list">
+          <div class="buy" v-for="pro in cartList" :key="pro.id">
+            <img :src="pro.images.small">
+            <p class="text-center">{{pro.title}}</p>
+            <div class="pro_number text-center cartNum">{{pro.num}}</div>
           </div>
         </div>
-        <!-- product list end -->
-        <div class="remark">
-          <input type="text" id="orderRemark" class="remark_input" placeholder="填写备注：">
+        <div class="order_referrer" onclick="Product.openReferrerModel()">
+          <p>推荐人</p>
+          <div><span id="referrerName">无</span> ></div>
         </div>
-        <div class="pay_ways clearfix">
-          <div>
-            <div class="water_coupon">
-              <p>卡券兑换</p>
-              <div class="water_coupon_name">无可用卡券 ></div>
-            </div>
-            <!-- <div id="score" class="score">
+      </div>
+      <!-- product list end -->
+      <div class="remark">
+        <input type="text" id="orderRemark" class="remark_input" placeholder="填写备注：">
+      </div>
+      <div class="pay_ways clearfix">
+        <div>
+          <div class="water_coupon">
+            <p>卡券兑换</p>
+            <div class="water_coupon_name">无可用卡券 ></div>
+          </div>
+          <!-- <div id="score" class="score">
             <p><span id="scoreTitle"></span></p>
             <label>￥<span id="maxUsePoints">0</span>
               <input type="checkbox" id="pointsToCash" onclick="Order.usePointsForCash();">
             </label>
           </div> -->
-            <div class="real_pay">
-              <p>实际支付</p>
-              <p class="real_money">￥ {{sumPrice}}</p>
-            </div>
+          <div class="real_pay">
+            <p>实际支付</p>
+            <p class="real_money">￥ {{sumPrice}}</p>
           </div>
         </div>
       </div>
-      <span slot="footer" class="dialog-footer payWaysBtn">
-        <el-button class="btn weipay" @click="payByWXQrcodePay();"><span class="icon iconfont">&#xe66d;</span> 微 信</el-button>
-        <el-button class="btn alipay" @click="payByAliQrcodePay();"><span class="icon iconfont">&#xe938;</span> 支付宝</el-button>
-        <el-button class="btn netfeepay" @click="payByNetbarBalance();"><span class="icon iconfont">&#xe630;</span> 网费余额</el-button>
-      </span>
+    </div>
+    <span slot="footer" class="dialog-footer payWaysBtn">
+      <el-button class="btn weipay" @click="payByWXQrcodePay();"><span class="icon iconfont">&#xe66d;</span> 微 信</el-button>
+      <el-button class="btn alipay" @click="payByAliQrcodePay();"><span class="icon iconfont">&#xe938;</span> 支付宝</el-button>
+      <el-button class="btn netfeepay" @click="payByNetbarBalance();"><span class="icon iconfont">&#xe630;</span> 网费余额</el-button>
+    </span>
+    <el-dialog width="300px" :visible.sync="payPopups" customClass="wechatPay" center append-to-body>
+    <div slot="title"><!-- <span class="icon iconfont"></span> --> {{payWays.title}}</div>
+    <div class="ewm">
+      <img src="#" alt="">
+    </div>
+    <p>订单号：{{payWays.orderId}}</p>
     </el-dialog>
-  </div>
+  </el-dialog>
+</div>
 </template>
 
 <script>
@@ -124,7 +131,8 @@
     name: 'Beverage',
     data() {
       return {
-        comfirmOrder: true,
+        comfirmOrder: false,
+        payPopups: false,
         moiveList: [],
         typeList: [{
             title: '正在热映',
@@ -141,7 +149,12 @@
         ],
         activeIdx: 0,
         searchText: '',
-        cartList: []
+        cartList: [],
+        payWays: {
+          iconClass: '',
+          title: '',
+          orderId: ''
+        }
       }
     },
     created() {
@@ -227,7 +240,31 @@
           item.num--
           this.$set(this.cartList, idx, item)
         }
-      }
+      },
+      checkOrder(){
+        if(cartList.length>0){
+          this.comfirmOrder = true
+        }
+      },
+      showQrcode(ways){
+        if(ways == 1){
+          this.payWays.title = '支付宝扫码支付'
+          this.payWays.orderId = '100000233547478599'
+        }else if(ways == 2){
+          this.payWays.title = '微信扫码支付',
+          this.payWays.orderId = '200000233547478599'
+        }
+        this.payPopups = true
+      },
+      payByAliQrcodePay(){
+        this.showQrcode(1)
+      },
+      payByWXQrcodePay(){
+        this.showQrcode(2)
+      },
+      payByNetbarBalance(){
+        this.$message('网费余额支付');
+      },
     },
     computed: {
       sumPrice() {
@@ -246,11 +283,10 @@
 <style lang="scss" scoped>
   .class {
     width: 180px;
-  }
-
-  .class .logo {
-    margin-bottom: 20px;
-    margin-top: -10px;
+    .logo {
+      margin-bottom: 20px;
+      margin-top: -10px;
+    }
   }
 
   .content {
@@ -786,7 +822,7 @@
     font-size: 12px;
   }
 
-.order_list .quan .cartNum {
+  .order_list .quan .cartNum {
     height: 20px;
     width: 20px;
     background-color: white;
@@ -798,49 +834,43 @@
     text-align: center;
   }
 
-.payWaysBtn {
+  .payWaysBtn {
     display: flex;
     justify-content: center;
   }
 
-.payWaysBtn button {
+  .payWaysBtn button {
     background-color: #fff;
     width: 110px;
   }
 
-.payWaysBtn button+button {
+  .payWaysBtn button+button {
     margin-left: 10px;
   }
 
-.payWaysBtn button>span {
+  .payWaysBtn button>span {
     margin-right: 6px;
   }
 
-.payWaysBtn button.weipay {
+  .payWaysBtn button.weipay {
     color: #2aac38;
   }
 
-.payWaysBtn button.alipay {
+  .payWaysBtn button.alipay {
     color: #00a7ff;
   }
 
-.payWaysBtn button.unionpay {
+  .payWaysBtn button.unionpay {
     color: #017f88;
   }
 
-.payWaysBtn button.netfeepay {
+  .payWaysBtn button.netfeepay {
     color: #ff9500;
   }
 
   /*  -- order detail --  */
   .confirm_order {
     background-color: #efefef;
-  }
-
-  .order_content .order_content,
-  .popups.green_pop .green_pop_content {
-    border-top: 0px solid #89C63D;
-    padding: 10px 20px;
   }
 
   .order_content .pro_list,
@@ -888,6 +918,7 @@
     height: 20px;
     line-height: 20px;
     margin-top: 8px;
+    overflow: hidden;
   }
 
   .order_content .order_list .buy img,
@@ -1096,4 +1127,50 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
+
+  // scan .popups
+.wechatPay{
+  height: 256px;
+  background: rgb(239, 238, 238);
+}
+.wechatPay .el-dialog__header{
+  border-top: 4px solid #89C63D;
+}
+.wechatPay .el-dialog__headerbtn{
+  color: #00C800;
+}
+.wechatPay .ewm{
+  height: 150px;
+  width: 150px;
+  margin-left: 75px;
+  background: white;
+  line-height: 150px;
+  text-align: center;
+}
+.wechatPay p{
+  text-align: center;
+  margin: 10px;
+}
+.wechatPay .dialog__headerbtn{
+  background-color: white;
+  border: 2px solid #89C63D;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+.wechatPay .order_close button{
+  display:flex;
+  justify-content:center;
+  height:100%;
+  width:100%;
+}
+.wechatPay .order_close button span{
+  color: #89C63D;
+  font-weight: bold;
+  line-height: 22px;
+  font-size: 20px;
+}
 </style>
