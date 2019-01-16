@@ -1,30 +1,64 @@
-body{
-    height: 660px;
-    width: 1060px;
-    position: relative;
-    overflow: hidden;
-    font-family: "Microsoft Yahei";
+body {
+  height: 660px;
+  width: 1060px;
+  position: relative;
+  overflow: hidden;
+  font-family: "Microsoft Yahei";
 }
 
-.user_center{
-    .panel-subNav{
-        display: flex;
-        justify-content: center;
-        position: relative;
-        padding-bottom: 10px;
-        padding-top: 10px;
-        .btn-group button{
-          width: 100px;
-          &.active{
-            box-shadow: none;
-          }
-        }
+.user_center {
+  .panel-subNav {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+    .btn-group button {
+      width: 100px;
+
+      &.active {
+        box-shadow: none;
       }
-      .panel-subNav .btn-group button{
-        border-color: #ebebeb;
-      }
-      .panel-subNav .btn-group button.active{
-        background-color: #86CCB2;
-        color: #FFF;
-      }
+    }
+  }
+
+  .panel-subNav .btn-group button {
+    border-color: #ebebeb;
+  }
+
+  .panel-subNav .btn-group button.active {
+    background-color: #86CCB2;
+    color: #FFF;
+  }
+}
+
+// element 组件修改
+
+// Beverage.vue
+.confirm_order {
+  background-color: #efefef;
+}
+
+.wechatPay {
+  background: rgb(239, 238, 238);
+
+  .el-dialog__header {
+    border-top: 4px solid #89C63D;
+  }
+
+  .el-dialog__headerbtn {
+    background-color: white;
+    border: 2px solid #89C63D;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+
+    i {
+      color: #00C800;
+    }
+  }
 }

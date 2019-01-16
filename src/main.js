@@ -16,24 +16,37 @@ import './assets/bootstrap3.3/dist/css/bootstrap.min.css'
 import './assets/css/global.scss'
 
 Vue.use(Vuex)
-Vue.use(ElementUI);
+Vue.use(ElementUI)
+
+// Global Loading setting
+let loading = null;
+function startLoading (){
+  loading = ElementUI.Loading.service({
+    lock: true,
+    text: '页面加载中',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  });
+}
+function stopLoading (){
+  loading.close();
+}
+// request interceptor
+Axios.interceptors.request.use(config => {
+  startLoading()
+  return config
+}, function (error) {
+  return Promise.reject(error);
+});
+// response interceptor
+Axios.interceptors.response.use(res => {
+  stopLoading()
+  return res
+}, function (error) {
+  return Promise.reject(error);
+});
+
 Vue.prototype.$axios = Axios
-
-// axios.interceptors.request.use(config => {
-//   // Do something before request is sent
-//   let loading = this.$loading({
-//     lock: true,
-//     background: 'rgba(0, 0, 0, 0.7)'
-//   });
-//   return config;
-// });
-
-// // Add a response interceptor
-// axios.interceptors.response.use(response => {
-//   // Do something with response data
-//   loading.close()
-//   return response;
-// });
 
 let store = new Vuex.Store({
   state: {

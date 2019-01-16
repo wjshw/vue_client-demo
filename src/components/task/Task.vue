@@ -3,7 +3,7 @@
   <div class="daily_task">
     <div class="task_header">
       <div class="left_progress">
-        <p>今日已完成任务</p>
+        <p>今日已完成任务({{taskList.count}}/{{taskList.num}})</p>
         <div class="progress">
           <div class="progress-bar" role="progressbar" :style="{width: taskList.count/taskList.num*100+'%'}">
           </div>
