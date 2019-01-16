@@ -166,7 +166,7 @@ import aliPayPic from '@/assets/img/aliqr.png'
     },
     methods: {
       getList(idx) {
-        this.$axios.get("api/" + this.typeList[idx].api)
+        this.$axios.get("http://api.douban.com/v2/" + this.typeList[idx].api)
           .then(res => {
             if (res.status == 200) {
               this.activeIdx = idx
@@ -179,7 +179,7 @@ import aliPayPic from '@/assets/img/aliqr.png'
       },
       searchMoive() {
         if (this.searchText) {
-          let url = 'api/movie/search?q=' + this.searchText
+          let url = 'http://api.douban.com/v2/movie/search?q=' + this.searchText
           this.$axios.get(url)
             .then(res => {
               if (res.status == 200) {

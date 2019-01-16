@@ -132,10 +132,10 @@
     },
     methods: {
       getTaskList(){
-        let url = 'yun/cashier/user/selectdaytask'
+        let url = 'http://yun.aida58.com/cashier/user/selectdaytask'
         let params = this.$store.getters.yunInit
 
-        this.$axios.post(url,params)
+        this.$axios.post(url,params,{headers:{'Access-Control-Allow-Origin': '*'}})
         .then(res => {
           console.log(res)
           res.data.count = 2

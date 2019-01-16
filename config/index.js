@@ -11,20 +11,20 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://api.douban.com/v2',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      },
-      '/yun': {
+      // '/api': {
+      //   target: 'http://api.douban.com/v2',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/api': ''
+      //   }
+      // },
+      '/http://yun.aida58.com': {
         target: 'http://yun.aida58.com',
         changeOrigin: true,
         pathRewrite: {
           '^/yun': ''
         }
-      },
+      }
     },
 
     // Various Dev Server settings

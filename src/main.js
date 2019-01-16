@@ -34,15 +34,19 @@ function stopLoading (){
 // request interceptor
 Axios.interceptors.request.use(config => {
   startLoading()
+  console.log(ElementUI)
   return config
-}, function (error) {
+}, (error) => {
   return Promise.reject(error);
 });
 // response interceptor
 Axios.interceptors.response.use(res => {
   stopLoading()
   return res
-}, function (error) {
+}, (error) => {
+  console.log('err')
+  stopLoading()
+  ElementUI.Message.error('网络连接失败');
   return Promise.reject(error);
 });
 
